@@ -13,16 +13,9 @@ load_dotenv()
 
 # ─── CONNEXION ────────────────────────────────────────────────
 def get_engine():
-    """Crée et retourne le moteur SQLAlchemy."""
-    DB_HOST = os.getenv("DB_HOST", "localhost")
-    DB_PORT = os.getenv("DB_PORT", "5432")
-    DB_NAME = os.getenv("DB_NAME", "iot_agri_db")
-    DB_USER = os.getenv("DB_USER", "agri_user")
-    DB_PASS = os.getenv("DB_PASSWORD", "tonmotdepasse")
-
-    url = f"postgresql+psycopg2://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-    return create_engine(url, pool_pre_ping=True)
-
+    """Connexion PostgreSQL Supabase."""
+    db_url = os.getenv("DATABASE_URL")
+    return create_engine(db_url, pool_pre_ping=True)
 
 def run_query(sql: str, params: dict = None) -> pd.DataFrame:
     """Exécute une requête SQL et retourne un DataFrame pandas."""
